@@ -10,4 +10,5 @@ public abstract class Menu {
     public void inserirEntradas(Scanner scanner) {
 
     }
+
 }

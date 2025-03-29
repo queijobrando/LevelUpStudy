@@ -1,6 +1,7 @@
 package studylevelup.application;
 
 import studylevelup.menu.MenuPrincipal;
+import studylevelup.model.entities.Usuario;
 import studylevelup.services.PastaCadastrosService;
 
 import java.util.Scanner;
@@ -15,9 +16,18 @@ public class ProgramaPrincipal {
         System.out.println("Seja bem vindo(a)!");
 
         gerarpasta.geraPasta();
-        chamarMenu.inserirEntradas(sc);
+        String entrada = chamarMenu.inserirEntradas2(sc);
 
-        System.out.println("Encerrando programa...");
-        sc.close();
+        if (entrada == null){
+            System.out.println("Encerrando programa...");
+            sc.close();
+        } else {
+            System.out.println("SEJA BEM VINDO(A)"+entrada);
+            Usuario usuariologado = new Usuario();
+            System.out.println(entrada);
+            System.out.println(usuariologado.getIdade(entrada));
+        }
+
+
     }
 }

@@ -11,6 +11,7 @@ public class MenuPrincipal extends Menu {
     public int opcao;
 
     MenuCadastro menucadastro = new MenuCadastro();
+    MenuLogin menuLogin = new MenuLogin();
     PastaCadastrosService path = new PastaCadastrosService();
 
     @Override
@@ -23,8 +24,7 @@ public class MenuPrincipal extends Menu {
         System.out.print("\nInsira a opção: ");
     }
 
-    @Override
-    public void inserirEntradas(Scanner scanner) {
+    public String inserirEntradas2(Scanner scanner) {
         do {
             mostrarOpcoes();
             try {
@@ -34,33 +34,11 @@ public class MenuPrincipal extends Menu {
                 switch (opcao) {
                     case 1 -> menucadastro.inserirEntradas(scanner);
                     case 2 -> {
-                        System.out.print("\nDigite seu usuario: ");
-                        String inserirusuario = scanner.nextLine();
-                        System.out.print("Digite a senha: ");
-                        String inserirsenha = scanner.nextLine();
+                        String usuario = menuLogin.inserirEntradasLogin(scanner);
 
-                        boolean loginSucesso = false;
-
-                        try (BufferedReader br = new BufferedReader(new FileReader(path.getCadastrosPath()))) {
-                            String linha;
-                            while ((linha = br.readLine()) != null) {
-                                String[] espacos = linha.split(",");
-                                String nomeUsuario = espacos[3];
-                                String senhaUsuario = espacos[4];
-
-                                if (nomeUsuario.equals(inserirusuario) && senhaUsuario.equals(inserirsenha)) {
-                                    System.out.println("Senha Correta!");
-                                    loginSucesso = true;
-                                    break;
-                                }
-                            }
-                            if (loginSucesso) { //se loginsucesso for verdadeiro
-                                opcao = 3;
-                            } else {
-                                System.out.println("Senha Incorreta! Tente novamente!");
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                        if (usuario != null){
+                            System.out.println("Login efetuado com sucesso!");
+                            return usuario;
                         }
                     }
                     default -> System.out.println("Erro: Insira uma opção válida!");
@@ -70,5 +48,6 @@ public class MenuPrincipal extends Menu {
                 System.out.println("Erro: Entrada inválida! Digite um número!");
             }
         }while (opcao != 3);
+        return null;
     }
 }

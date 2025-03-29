@@ -8,6 +8,10 @@ public class Usuario extends Pessoa{
     private Integer nivel;
     private Integer pontos;
 
+    public Usuario(){
+
+    }
+
     public Usuario(String nome, String email, Date dataNascimento, String nickname, String senha) {
         super(nome, email, dataNascimento);
         this.nickname = nickname;
@@ -29,4 +33,5 @@ public class Usuario extends Pessoa{
     public String getSenha() {
         return senha;
     }
+
 }
